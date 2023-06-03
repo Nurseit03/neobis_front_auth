@@ -1,6 +1,11 @@
 @font-face {
-    font-family: 'gothampro';
+    font-family: 'Gotham Pro';
     src: url('../fonts/gothampro.ttf');
+}
+
+html{
+    font-family: 'Gotham Pro';
+    font-style: normal;
 }
 
 body{
@@ -14,18 +19,19 @@ body{
 .form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     background: #ffffff;
     border-radius: 50px;
-    height: 650px;
+    min-height: 650px;
     width: 650px;
 }
+
 .form form{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 35px;
 }
 
 .form input, button{
@@ -35,17 +41,24 @@ body{
     background: #F7F7F8;
     border: 1px solid #F5F5F5;
     border-radius: 8px;
-    font-family: 'Gotham Pro';
-    font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 120%;
-    color: #C1C1C1;
     padding: 22px 0 19px 10px;
 }
-.form h2 {
-    font-family: 'Gotham Pro';
-    font-style: normal;
+
+form input, button{
+    color: #C1C1C1;
+}
+
+.form input::placeholder{
+    color: #C1C1C1;
+}
+.form button{
+    color: #C1C1C1;
+}
+
+.form__title{
     font-weight: 700;
     font-size: 24px;
     line-height: 24px;
@@ -53,4 +66,34 @@ body{
     letter-spacing: -0.408px;
     color: #292929;
     margin-bottom: 32px;
+}
+
+#get__started{
+    padding-bottom: 57px;
+    padding-top: max(40px, 10%);
+    color: #5D5FEF;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+#smile__img{
+    margin-top: max(100px, 10%);
+    margin-bottom: 30px;
+    width: 120.41px;
+    height: 110.46px;
+}
+
+.return__button img{
+    width: 15px;
+    height: 12px;
+}
+.return__button{
+    width: 42px;
+    height: auto;
+    position: absolute;
+    align-self: flex-start;
+    margin: 25px 0 0 25px;
+    padding: 2px 10px;
+    background: rgba(192, 192, 192, 0.2);
+    border-radius: 50px;
 }
