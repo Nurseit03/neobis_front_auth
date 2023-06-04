@@ -3,7 +3,6 @@ import smile from '../../img/smile.png';
 import vector_left from '../../img/vector_left.png';
 import {useFormik} from 'formik';
 import { Link } from 'react-router-dom';
-// import '../../css/components/signupPassword.css';
 
 const initialValues = {
     password: '',
@@ -11,7 +10,9 @@ const initialValues = {
 };
 
 const onSubmit = values => {
+    if(values.password == values.confirmPassword){
     console.log('Form data:',values);
+    }
 };
 
 const SignupPassword = () => {
@@ -43,4 +44,4 @@ const SignupPassword = () => {
     )
 }
 
-export default SignupPassword
+export default SignupPassword;

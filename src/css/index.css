@@ -36,6 +36,10 @@ body{
     gap:25px;
 }
 
+.form__input{
+    margin-bottom: 7px;
+}
+
 .form input, button{
     height: 60px;
     width: 335px;
@@ -49,14 +53,11 @@ body{
     padding: 22px 0 19px 10px;
 }
 
-form input, button{
+form input{
     color: #C1C1C1;
 }
 
 .form input::placeholder{
-    color: #C1C1C1;
-}
-.form button{
     color: #C1C1C1;
 }
 
@@ -108,4 +109,26 @@ form input, button{
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+
+/* .form-control{
+    margin-bottom: 20px;
+} */
+.error{
+    color: red;
+}
+
+input[type='text'],
+     [type='email'],
+     [type='date']
+{
+    color: black;
+}
+
+.form__button{
+    color: #C1C1C1;
+}
+.form__button--active{
+    background: #5D5FEF;
+    color:#ffffff;
 }
