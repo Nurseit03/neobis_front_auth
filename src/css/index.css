@@ -101,15 +101,22 @@ form input{
     border-radius: 50px;
 }
 
-.conditions li{
-    color: #C1C1C1;
-}
 .conditions{
     margin-left: 17px;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
+.conditions li{
+    color: #C1C1C1;
+}
+.conditions li.valid{
+    color: #5D5FEF;
+}
+.conditions li.invalid {
+    color: red; 
+  }
+
 
 /* .form-control{
     margin-bottom: 20px;
@@ -120,7 +127,8 @@ form input{
 
 input[type='text'],
      [type='email'],
-     [type='date']
+     [type='date'],
+     [type='password']
 {
     color: black;
 }
@@ -131,4 +139,7 @@ input[type='text'],
 .form__button--active{
     background: #5D5FEF;
     color:#ffffff;
+}
+.modal__email{
+    color:#5D5FEF
 }

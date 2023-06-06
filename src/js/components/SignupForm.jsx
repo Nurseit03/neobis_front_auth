@@ -1,12 +1,8 @@
-// Images
 import smile from '../../img/smile.png';
 import vector_left from '../../img/vector_left.png';
-//
 import React from 'react'
 import {useFormik} from 'formik';
-import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import * as yup from 'yup';
+import { Link , useNavigate} from 'react-router-dom';
 import validationSchema from '../schemas/index.js'
 
 const initialValues = {
@@ -16,11 +12,14 @@ const initialValues = {
     email:''
 };
 
-const onSubmit = values => {
-    console.log('Form data:',values);
-};
-
 const SignupForm = () => {
+    
+    const navigate = useNavigate();
+
+    const onSubmit = values => {
+        console.log('Form data:',values);
+        navigate('/SignupPassword');
+    };
 
     const formik = useFormik({
         initialValues,
@@ -30,8 +29,6 @@ const SignupForm = () => {
         validateOnBlur: false
     });
 
-
-    // console.log('Visited fields:', formik.touched);
     return (
         <>
         <div className="form">
@@ -59,7 +56,7 @@ const SignupForm = () => {
                 {formik.errors.email ? <div className="error">{formik.errors.email}</div> : null}
                 </div>
                 
-                <button type="submit" className="form__button">Зарегистрироваться</button>
+                <button type="submit"  className={`form__button ${formik.values.name && formik.values.lastName && formik.values.birthdate && formik.values.email ? 'form__button--active' : ''}`} disabled={!formik.values.name || !formik.values.lastName || !formik.values.birthdate || !formik.values.email}>Зарегистрироваться</button>
             </form>
         </div>
         </>
