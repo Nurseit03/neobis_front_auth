@@ -4,14 +4,13 @@ import vector_left from '../../img/vector_left.png';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactModal from 'react-modal';
-
 ReactModal.setAppElement('#root');
 
 const initialValues = {
   email: ''
 };
 
-const Signup = () => {
+const PasswordReset = () => {
 
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -23,7 +22,7 @@ const Signup = () => {
     const closeModal = () => {
         setIsModalOpen(false);
         formik.resetForm();
-        navigate('/SignupForm');
+        navigate('/NewPassword');
     };
 
     const onSubmit = values => {
@@ -43,11 +42,12 @@ const Signup = () => {
                 <Link to="/"><img src={vector_left} alt="return" /></Link>
             </button>
             <img src={smile} alt="Smile" id="smile__img" />
-            <h2 className="form__title">Регистрация</h2>
+            <h2 className="form__title">Сброс пароля</h2>
+            <p className="form__subtitle">На введенную вами почту мы отправим ссылку, перейдя по которой вы сможете сбросить пароль</p>
             <form onSubmit={formik.handleSubmit}>
-            <input className="form__input" method="post" type="email" name="email" id="email" placeholder="Электронная почта" onChange={formik.handleChange} value={formik.values.email} />
-            <button type="submit" method="post" className={`form__button ${formik.values.email ? 'form__button--active' : ''}`} disabled={!formik.values.email}>
-                <Link to="/SignupForm">Далее</Link>
+            <input className="form__input" type="email" name="email" id="email" placeholder="Электронная почта" onChange={formik.handleChange} value={formik.values.email} />
+            <button type="submit" className={`form__button ${formik.values.email ? 'form__button--active' : ''}`} disabled={!formik.values.email}>
+                <Link to="/NewPassword">Далее</Link>
             </button>
             </form>
         </div>
@@ -88,4 +88,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default PasswordReset;

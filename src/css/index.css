@@ -53,7 +53,7 @@ body{
     padding: 22px 0 19px 10px;
 }
 
-form input{
+form input,p{
     color: #C1C1C1;
 }
 
@@ -69,6 +69,15 @@ form input{
     letter-spacing: -0.408px;
     color: #292929;
     /* margin-bottom: 32px; */
+}
+.form__subtitle{
+    padding-left: 160px;
+    padding-right:160px;
+}
+
+.forgot__password{
+    /* align-self: end; */
+    float: right;
 }
 
 #get__started{

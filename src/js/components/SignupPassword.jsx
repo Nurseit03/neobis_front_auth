@@ -2,7 +2,7 @@ import React from 'react'
 import smile from '../../img/smile.png';
 import vector_left from '../../img/vector_left.png';
 import {useFormik} from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import signupPassword from '../schemas/signupPassword.js'
 
 const initialValues = {
@@ -10,17 +10,21 @@ const initialValues = {
     confirmPassword: ''
 };
 
-const onSubmit = (values,errors) => {
-      console.log('Form data:', values);
-  };
-  
 
 const SignupPassword = () => {
+    const navigate = useNavigate();
+
+    const onSubmit = (values) => {
+        if(values.password == values.confirmPassword){
+        console.log('Form data:', values);
+        navigate("/");
+        }
+    };  
 
     const formik = useFormik({
         initialValues,
         onSubmit,
-        signupPassword
+        validtionSchema: signupPassword  
     });
 
     const isPasswordValid = formik.touched.password && !formik.errors.password && formik.values.password && /[A-Z]/.test(formik.values.password);

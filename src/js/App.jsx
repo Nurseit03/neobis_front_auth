@@ -3,8 +3,11 @@ import '../css/App.css';
 import Login from './components/Login'
 import SignupForm from './components/SignupForm'
 import Signup from './components/Signup'
+import PasswordReset from './components/PasswordReset'
 import SignupPassword from './components/SignupPassword'
+import NewPassword from './components/NewPassword'
 import { Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 
 function App() {
 
@@ -16,6 +19,8 @@ function App() {
         <Route path="/Signup" element={<Signup />}></Route>
         <Route path="/SignupForm" element={<SignupForm />}></Route>
         <Route path="/SignupPassword" element={<SignupPassword />}></Route>
+        <Route path="/PasswordReset" element={<PasswordReset />}></Route>
+        <Route path="/NewPassword" element={<NewPassword/>}></Route>
       </Routes>
     </div>
   </>

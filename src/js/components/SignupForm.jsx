@@ -3,7 +3,7 @@ import vector_left from '../../img/vector_left.png';
 import React from 'react'
 import {useFormik} from 'formik';
 import { Link , useNavigate} from 'react-router-dom';
-import validationSchema from '../schemas/index.js'
+import basicSchema from '../schemas/index.js'
 
 const initialValues = {
     name:'',
@@ -23,8 +23,8 @@ const SignupForm = () => {
 
     const formik = useFormik({
         initialValues,
-        validationSchema,
         onSubmit,
+        validationSchema: basicSchema,
         validateOnChange: false, 
         validateOnBlur: false
     });
