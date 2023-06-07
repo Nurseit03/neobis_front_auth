@@ -1,6 +1,8 @@
-import React from 'react'
+import {React, useState} from 'react'
 import smile from '../../img/smile.png';
 import vector_left from '../../img/vector_left.png';
+import show_password from '../../img/show_password.png';
+import hide_password from '../../img/hide_password.png';
 import {useFormik} from 'formik';
 import signupPassword from '../schemas/signupPassword.js'
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,6 +13,7 @@ const initialValues = {
 };
 
 const NewPassword = () => {
+    const [showPassword, setShowPassword] = useState(false); // Состояние для отслеживания видимости пароля
     const navigate = useNavigate();
         
     const onSubmit = (values,errors) => {
@@ -18,6 +21,10 @@ const NewPassword = () => {
             console.log('Form data:', values);
             navigate("/");
         // }
+    };
+
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword); 
     };
 
     const formik = useFormik({
@@ -37,8 +44,11 @@ const NewPassword = () => {
             <img src={smile} alt="Smile" id="smile__img"/>
             <h2 className="form__title">Новый пароль</h2>
             <form onSubmit={formik.handleSubmit}>
-                <input className="form__input" type="text" name="password" id="password" placeholder="Пароль" onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.password}/>
-                <input className="form__input" type="password" name="confirmPassword" id="confirmPassword" placeholder="Потвердите пароль" onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.confirmPassword}/>
+                <input className="form__input" type="text" name="password" id="password" placeholder="Придумайте пароль" onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.password}/>
+                <div>
+                <input className="form__input" type={showPassword ? 'text' : 'password'} name="confirmPassword" id="confirmPassword" placeholder="Повторите пароль" onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.confirmPassword}/>
+                <button id="show__password__button" type="button" onClick={handleShowPassword}><img src={showPassword ? hide_password : show_password} alt={showPassword ? 'hide' : 'show'} /></button>
+                </div>
                 <ul className="conditions">
                 <li className={isPasswordValid ? 'valid' : 'invalid'}>Заглавная буква</li>
                 <li className={isDigitPresent ? 'valid' : 'invalid'}>Цифры</li>

@@ -40,7 +40,7 @@ body{
     margin-bottom: 7px;
 }
 
-.form input, button{
+.form input,button{
     height: 60px;
     width: 335px;
     /* margin-bottom: 24px; */
@@ -79,6 +79,16 @@ form input,p{
     /* align-self: end; */
     float: right;
 }
+
+#show__password__button{
+    width: 20px;
+    height: 14px;
+    background:inherit;
+    border-style: none;
+    position: absolute;
+    align-self: flex-start;   
+}
+
 
 #get__started{
     padding-bottom: 57px;
