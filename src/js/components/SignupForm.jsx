@@ -4,7 +4,7 @@ import {React,useState,useEffect} from 'react'
 import {useFormik} from 'formik';
 import { Link , useNavigate} from 'react-router-dom';
 import basicSchema from '../schemas/index.js'
-import axios from 'axios';
+import axios from '../../api/api.js';
 
 const initialValues = {
     name:'',
@@ -18,6 +18,9 @@ const SignupForm = () => {
     const navigate = useNavigate();
 
     const onSubmit = async (values, actions) => {
+        handleSignup(values);
+        actions.resetForm();
+
         console.log('Form data:',values);
         localStorage.setItem('formData', JSON.stringify(values));
 
@@ -25,6 +28,25 @@ const SignupForm = () => {
 
         navigate('/SignupPassword');
     };
+
+
+    const handleSignup = async (user) => {
+        // console.log(user);
+        // console.log(JSON.stringify(user));
+        try {
+          const response = await axios.post("/register-update/", user);
+    
+          if (!(response.status === 201 || response.status === 200)) {
+            console.log(response)
+            throw new Error("Network response was not ok");
+          }
+    
+          console.log(response);
+          return response;
+        } catch (error) {
+          console.log("Error:", error)
+        }
+      }
 
     const formik = useFormik({
         initialValues,

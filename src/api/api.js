@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const BASE_URL = "http://34.159.48.221";
-const baseURL = "http://16.171.11.58/api/v1/account/";
+const BASE_URL = "http://34.159.48.221/auth";
 
 export default axios.create({
-    baseURL: baseURL,  
+    baseURL: BASE_URL,  
     headers: {
       "Content-Type": "application/json"
     }

@@ -5,21 +5,41 @@ import show_password from '../../img/show_password.png';
 import hide_password from '../../img/hide_password.png';
 import { Link } from 'react-router-dom';
 import loginSchema from '../schemas/loginSchema.js';
-import reg from '../../api/api.js';
+import axios from '../../api/api.js';
 
 const initialValues = {
     email:'',
     password:''
 };
 
-const onSubmit = values => {
-    console.log('Form data:',values);
-};
-
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false); // Состояние для отслеживания видимости пароля
 
+    const onSubmit = async (values, actions) => {
+        handleSignup(values);
+        actions.resetForm();
+
+        console.log('Form data:',values);
+    };
     
+    const handleSignup = async (user) => {
+        console.log(user);
+        console.log(JSON.stringify(user));
+        try {
+          const response = await axios.post("/login/", user);
+    
+          if (!(response.status === 201 || response.status === 200)) {
+            console.log(response)
+            throw new Error("Network response was not ok");
+          }
+    
+          console.log(response);
+          return response;
+        } catch (error) {
+          console.log("Error:", error)
+        }
+      }
+
     const formik = useFormik({
         initialValues,
         onSubmit,

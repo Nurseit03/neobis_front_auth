@@ -6,7 +6,7 @@ import hide_password from '../../img/hide_password.png';
 import {useFormik} from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import signupPassword from '../schemas/signupPassword.js'
-import axios from 'axios';
+import axios from '../../api/api.js';
 
 const initialValues = {
     password: '',
@@ -44,7 +44,7 @@ const SignupPassword = () => {
 
     const handleSignup = async (user) => {
         try {
-          const response = await axios.post("/register_confirm/", user);
+          const response = await axios.post("/register-update/", user);
     
           if (!(response.status === 201 || response.status === 200)) {
             console.log(response)

@@ -33,9 +33,9 @@ const Signup = () => {
     resetForm
   } = useFormik({
     initialValues: {
-      email: "" // only gmail for that
+      email: "" ,// only gmail for that
       // username: "TESTT",
-      // password: "TESTT",
+      password: "TESTT312321",
     },
     // validationSchema: signupSchema,
     onSubmit,
