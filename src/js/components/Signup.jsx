@@ -9,7 +9,7 @@ import axios from '../../api/api.js';
 ReactModal.setAppElement('#root');
 
 const Signup = () => {
-  const [email, setEmail] = useState("");
+  const [modalEmail, setModalEmail] = useState("");
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -18,7 +18,8 @@ const Signup = () => {
     actions.resetForm();
 
     console.log('Form data:', values);
-    // openModal();
+    setModalEmail(values.email);
+    openModal();
   };
 
   const {
@@ -32,19 +33,19 @@ const Signup = () => {
     resetForm
   } = useFormik({
     initialValues: {
-      email: "", // only gmail for that
-      username: "TESTT",
-      password: "TESTT",
+      email: "" // only gmail for that
+      // username: "TESTT",
+      // password: "TESTT",
     },
     // validationSchema: signupSchema,
     onSubmit,
   });
 
   const handleSignup = async (user) => {
-    console.log(user);
-    console.log(JSON.stringify(user));
+    // console.log(user);
+    // console.log(JSON.stringify(user));
     try {
-      const response = await axios.post("/auth/register", user);
+      const response = await axios.post("/register/", user);
 
       if (!(response.status === 201 || response.status === 200)) {
         console.log(response)
@@ -127,7 +128,7 @@ const Signup = () => {
         }}
       >
         <img src={smile} alt="Smile" />
-        <h3>На вашу почту «<p className="modal__email">{values.email}</p>» было отправлено письмо</h3>
+        <h3>На вашу почту «<p className="modal__email">{modalEmail}</p>» было отправлено письмо</h3>
         <button onClick={closeModal} className="form__button--active">Закрыть</button>
       </ReactModal>
     </>

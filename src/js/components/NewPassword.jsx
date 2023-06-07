@@ -16,11 +16,11 @@ const NewPassword = () => {
     const [showPassword, setShowPassword] = useState(false); // Состояние для отслеживания видимости пароля
     const navigate = useNavigate();
         
-    const onSubmit = (values,errors) => {
-        // if (Object.keys(errors).length === 0) {
+    const onSubmit = values => {
+        if(values.password == values.confirmPassword && isPasswordValid && isDigitPresent && isSpecialCharPresent && isPasswordConfirmed){
             console.log('Form data:', values);
             navigate("/");
-        // }
+        }
     };
 
     const handleShowPassword = () => {

@@ -1,9 +1,10 @@
 import smile from '../../img/smile.png';
 import vector_left from '../../img/vector_left.png';
-import React from 'react'
+import {React,useState,useEffect} from 'react'
 import {useFormik} from 'formik';
 import { Link , useNavigate} from 'react-router-dom';
 import basicSchema from '../schemas/index.js'
+import axios from 'axios';
 
 const initialValues = {
     name:'',
@@ -16,8 +17,12 @@ const SignupForm = () => {
     
     const navigate = useNavigate();
 
-    const onSubmit = values => {
+    const onSubmit = async (values, actions) => {
         console.log('Form data:',values);
+        localStorage.setItem('formData', JSON.stringify(values));
+
+        actions.resetForm();
+
         navigate('/SignupPassword');
     };
 
@@ -56,7 +61,9 @@ const SignupForm = () => {
                 {formik.errors.email ? <div className="error">{formik.errors.email}</div> : null}
                 </div>
                 
-                <button type="submit"  className={`form__button ${formik.values.name && formik.values.lastName && formik.values.birthdate && formik.values.email ? 'form__button--active' : ''}`} disabled={!formik.values.name || !formik.values.lastName || !formik.values.birthdate || !formik.values.email}>Зарегистрироваться</button>
+                <button type="submit"  className={`form__button ${formik.values.name && formik.values.lastName && formik.values.birthdate && formik.values.email ? 'form__button--active' : ''}`} disabled={!formik.values.name || !formik.values.lastName || !formik.values.birthdate || !formik.values.email}>
+                    Зарегистрироваться
+                </button>
             </form>
         </div>
         </>
