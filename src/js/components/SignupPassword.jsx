@@ -35,7 +35,7 @@ const SignupPassword = () => {
         //Сохранение обновленных данных в localStorage
         localStorage.setItem('formData', JSON.stringify(updatedData));
 
-        handleSignup(values);
+        handleSignup(updatedData);
         actions.resetForm();
 
         navigate("/");
