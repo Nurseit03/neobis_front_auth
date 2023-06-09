@@ -47,22 +47,6 @@ const SignupForm = () => {
         }
       }
 
-      const formatPhoneNumber = (phoneNumber) => {
-        // Удаление всех символов, кроме цифр
-        const cleaned = phoneNumber.replace(/\D/g, "");
-    
-        // Добавление скобки после второй цифры и перед пятой цифрой
-        const formatted = cleaned.replace(/^(\d{2})(\d{3})(\d{4})$/, "($1) $2-$3");
-    
-        return formatted;
-      };
-    
-      const handlePhoneChange = (e) => {
-        const formattedNumber = formatPhoneNumber(e.target.value);
-        formik.setFieldValue("phone_number", formattedNumber);
-      };
-      
-
     const formik = useFormik({
         initialValues,
         onSubmit,

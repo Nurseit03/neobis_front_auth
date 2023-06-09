@@ -23,9 +23,9 @@ function App() {
         <Route path="/SignupPassword" element={<SignupPassword />}></Route>
         <Route path="/PasswordReset" element={<PasswordReset />}></Route>
         <Route path="/NewPassword" element={<NewPassword/>}></Route>
-        <Route path="/Logout" element={<Logout />}></Route>
+        {/* <Route path="/Logout" element={<Logout />}></Route> */}
         <Route path="/Profile" element={<Profile />}></Route>
-        <Route path="/auth/password-reset/:uidb64/:token" component={NewPassword} />
+        {/* <Route path="/auth/password-reset/:uidb64/:token" component={NewPassword} /> */}
       </Routes>
     </div>
   </>
