@@ -10,7 +10,7 @@ const signupPassword = yup.object().shape({
   specialSymbols: yup
     .string()
     .matches(/^(?=.*[!@#$%^&*()])/, 'Специальный символ должен присутствовать'),
-  confirmPassword: yup
+  confirm_password: yup
     .string()
     .required('Подтвердите пароль')
     .oneOf([yup.ref('password'), null], 'Пароли должны совпадать')

@@ -1,11 +1,11 @@
-import {React, useState} from 'react';
+import React, {useState} from 'react';
 import {useFormik} from 'formik';
 import smile from '../../img/smile.png';
 import show_password from '../../img/show_password.png';
 import hide_password from '../../img/hide_password.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import loginSchema from '../schemas/loginSchema.js';
-import axios from '../../api/api.js';
+import axios from '../../api/axios.js';
 
 const initialValues = {
     email:'',
@@ -13,18 +13,20 @@ const initialValues = {
 };
 
 const Login = () => {
-    const [showPassword, setShowPassword] = useState(false); // Состояние для отслеживания видимости пароля
+    const [showPassword, setShowPassword] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const navigate = useNavigate();
 
     const onSubmit = async (values, actions) => {
-        handleSignup(values);
+        handleLogin(values);
         actions.resetForm();
 
         console.log('Form data:',values);
     };
     
-    const handleSignup = async (user) => {
-        console.log(user);
-        console.log(JSON.stringify(user));
+    const handleLogin = async (user) => {
+        // console.log(user);
+        // console.log(JSON.stringify(user));
         try {
           const response = await axios.post("/login/", user);
     
@@ -33,10 +35,14 @@ const Login = () => {
             throw new Error("Network response was not ok");
           }
     
+          setShowError(false);
+          navigate('/Profile');
+
           console.log(response);
           return response;
         } catch (error) {
-          console.log("Error:", error)
+          setShowError(true);
+          console.log("Error:", error);
         }
       }
 
@@ -64,7 +70,7 @@ const Login = () => {
                 </div>
                 <div>
                     <Link to="/PasswordReset" className="forgot__password"><b>Забыли пароль?</b></Link>
-                    {formik.errors.email || formik.errors.password ? (<div className="error">Неверный логин или пароль</div>) : null}
+                    {showError ? (<div className="error">Неверный логин или пароль</div>) : null}
                 </div>
                 <button type="submit"  id="form__submit__button" className={`form__button ${formik.values.email && formik.values.password ? 'form__button--active' : ''}`} disabled={!formik.values.email || !formik.values.password}>Войти</button>
             </form>

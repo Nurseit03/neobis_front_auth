@@ -1,10 +1,10 @@
-import {React, useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import smile from '../../img/smile.png';
 import vector_left from '../../img/vector_left.png';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactModal from 'react-modal';
-import axios from '../../api/api.js';
+import axios from '../../api/axios.js';
 
 ReactModal.setAppElement('#root');
 
@@ -12,14 +12,13 @@ const Signup = () => {
   const [modalEmail, setModalEmail] = useState("");
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
 
   const onSubmit = async (values, actions) => {
     handleSignup(values);
     actions.resetForm();
 
     console.log('Form data:', values);
-    setModalEmail(values.email);
-    openModal();
   };
 
   const {
@@ -33,29 +32,31 @@ const Signup = () => {
     resetForm
   } = useFormik({
     initialValues: {
-      email: "" ,// only gmail for that
-      // username: "TESTT",
-      password: "TESTT312321",
+      email: ""
     },
-    // validationSchema: signupSchema,
     onSubmit,
   });
 
   const handleSignup = async (user) => {
-    // console.log(user);
-    // console.log(JSON.stringify(user));
+    console.log(JSON.stringify(user));
     try {
-      const response = await axios.post("/register/", user);
+      const response = await axios.post("/register-email/", user);
 
-      if (!(response.status === 201 || response.status === 200)) {
-        console.log(response)
+      if (response.status === 201) {
+        console.log(response);
+        setModalEmail(user.email);
+        openModal();
+        
+      } else {
+        console.log(response);
         throw new Error("Network response was not ok");
       }
 
-      console.log(response);
-      return response;
     } catch (error) {
-      console.log("Error:", error)
+      if (error.response && error.response.status === 400) {
+        setErrorModalOpen(true);
+      }
+      console.log("Error:", error);
     }
   }
 
@@ -67,6 +68,10 @@ const Signup = () => {
     setIsModalOpen(false);
     resetForm();
     navigate('/SignupForm');
+  };
+
+  const closeErrorModal = () => {
+    setErrorModalOpen(false);
   };
 
   return (
@@ -130,6 +135,38 @@ const Signup = () => {
         <img src={smile} alt="Smile" />
         <h3>На вашу почту «<p className="modal__email">{modalEmail}</p>» было отправлено письмо</h3>
         <button onClick={closeModal} className="form__button--active">Закрыть</button>
+      </ReactModal>
+      <ReactModal
+        isOpen={errorModalOpen}
+        onRequestClose={closeErrorModal}
+        contentLabel="Ошибка"
+        style={{
+          overlay: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+          },
+          content: {
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '400px',
+            height: '250px',
+            background: '#FFFFFF',
+            borderRadius: '40px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '44px 16px',
+            gap: '24px',
+            border: 'none',
+          },
+        }}
+      >
+        <h3>Данная электронная почта уже зарегистрирована</h3>
+        <button onClick={closeErrorModal} className="form__button--active">Закрыть</button>
       </ReactModal>
     </>
   );

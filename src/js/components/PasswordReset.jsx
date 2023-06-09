@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import smile from '../../img/smile.png';
 import vector_left from '../../img/vector_left.png';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactModal from 'react-modal';
+import axios from '../../api/axios.js';
+
 ReactModal.setAppElement('#root');
 
 const initialValues = {
@@ -11,9 +13,9 @@ const initialValues = {
 };
 
 const PasswordReset = () => {
-
     const navigate = useNavigate();
-    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalEmail, setModalEmail] = useState("");
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -22,13 +24,34 @@ const PasswordReset = () => {
     const closeModal = () => {
         setIsModalOpen(false);
         formik.resetForm();
-        navigate('/NewPassword');
     };
 
-    const onSubmit = values => {
+    const onSubmit = async (values, actions) => {
+        handleResetEmail(values);
+        setModalEmail(values.email);
+        actions.resetForm();
+
         console.log('Form data:', values);
         openModal();
     };
+
+    const handleResetEmail = async (user) => {
+        // console.log(user);
+        // console.log(JSON.stringify(user));
+        try {
+          const response = await axios.post("/request-reset-email/",user);
+    
+          if (!(response.status === 201 || response.status === 200)) {
+            console.log(response)
+            throw new Error("Network response was not ok");
+          }
+    
+          console.log(response);
+          return response;
+        } catch (error) {
+          console.log("Error:", error)
+        }
+      }
 
     const formik = useFormik({
         initialValues,
@@ -47,7 +70,7 @@ const PasswordReset = () => {
             <form onSubmit={formik.handleSubmit}>
             <input className="form__input" type="email" name="email" id="email" placeholder="Электронная почта" onChange={formik.handleChange} value={formik.values.email} />
             <button type="submit" className={`form__button ${formik.values.email ? 'form__button--active' : ''}`} disabled={!formik.values.email}>
-                <Link to="/NewPassword">Далее</Link>
+                Далее
             </button>
             </form>
         </div>
@@ -81,7 +104,7 @@ const PasswordReset = () => {
             }}
         >
             <img src={smile} />
-            <h3>На вашу почту «<p className="modal__email">{formik.values.email}</p>» было отправлено письмо</h3>
+            <h3>На вашу почту «<p className="modal__email">{modalEmail}</p>» было отправлено письмо</h3>
             <button onClick={closeModal} className="form__button--active">Закрыть</button>
         </ReactModal>
         </>
