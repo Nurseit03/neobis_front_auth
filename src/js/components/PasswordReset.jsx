@@ -103,7 +103,7 @@ const PasswordReset = () => {
             },
             }}
         >
-            <img src={smile} />
+            <img src={smile} alt="" />
             <h3>На вашу почту «<p className="modal__email">{modalEmail}</p>» было отправлено письмо</h3>
             <button onClick={closeModal} className="form__button--active">Закрыть</button>
         </ReactModal>

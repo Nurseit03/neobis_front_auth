@@ -4,7 +4,7 @@ import smile from '../../img/smile.png';
 import bell from '../../img/bell.png'
 import show_password from '../../img/show_password.png';
 import hide_password from '../../img/hide_password.png';
-import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
+import { Link, useNavigate, useLocation} from 'react-router-dom';
 import ReactModal from 'react-modal';
 import loginSchema from '../schemas/loginSchema.js';
 import axios from '../../api/axios.js';
@@ -90,7 +90,7 @@ const Login = () => {
                 <input className="form__input" type="text" name="email" id="email" placeholder="Электронная почта" onChange={formik.handleChange} value={formik.values.email}/>
                 <div>
                 <input className="form__input" type={showPassword ? 'text' : 'password'} name="password" id="password" placeholder="Пароль" onChange={formik.handleChange} value={formik.values.password}/>
-                <button id="show__password__button" type="button" onClick={handleShowPassword}><img src={showPassword ? hide_password : show_password} alt={showPassword ? 'hide' : 'show'} /></button>
+                <button id="show__password__button" type="button" onClick={handleShowPassword}><img src={showPassword ? hide_password : show_password} alt={showPassword ? 'hide' : 'show'} alt=""/></button>
                 </div>
                 <div>
                     <Link to="/PasswordReset" className="forgot__password"><b>Забыли пароль?</b></Link>
@@ -127,7 +127,7 @@ const Login = () => {
             }}
             >
             <div style={{ overflow: 'hidden' }}>
-                <img src={bell} id="bell__img"/>
+                <img src={bell} id="bell__img" alt=""/>
                 <b>{modalText}</b>
             </div>
         </ReactModal>

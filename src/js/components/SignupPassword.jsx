@@ -84,7 +84,7 @@ const SignupPassword = () => {
                 <input className={isValidPasswordLength ? 'form__input' : 'form__input invalid-border'} method="post" type="text" name="password" id="password" placeholder="Пароль" onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.password}/>
                 <div>
                     <input className={isValidPasswordLength ? 'form__input' : 'form__input invalid-border'} method="post" type={showPassword ? 'text' : 'password'} name="confirm_password" id="confirm_password" placeholder="Повторите пароль" onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.confirm_password}/>
-                    <button id="show__password__button" type="button" onClick={handleShowPassword}><img src={showPassword ? hide_password : show_password} alt={showPassword ? 'hide' : 'show'} /></button>
+                    <button id="show__password__button" type="button" onClick={handleShowPassword}><img src={showPassword ? hide_password : show_password} alt={showPassword ? 'hide' : 'show'} alt=""/></button>
                 </div>
                 {!isValidPasswordLength ? <div className="error">Пароль не менее 8 символов и не более 15</div> : null}
                 <ul className="conditions">
