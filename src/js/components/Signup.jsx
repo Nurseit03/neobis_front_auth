@@ -40,7 +40,7 @@ const Signup = () => {
   const handleSignup = async (user) => {
     console.log(JSON.stringify(user));
     try {
-      const response = await axios.post("/register-email/", JSON.stringify(user));
+      const response = await axios.post("/register-email/", user);
 
       if (response.status === 201) {
         console.log(response);
