@@ -36,7 +36,7 @@ const SignupPassword = () => {
         handleSignupPassword(values);
         actions.resetForm();
 
-        navigate("/");
+        navigate('/', { state: { isModalOpen: true, modalText: "Успешная регистрация!" } });
         }
     };  
 

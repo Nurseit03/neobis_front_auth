@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useFormik} from 'formik';
 import smile from '../../img/smile.png';
+import bell from '../../img/bell.png'
 import show_password from '../../img/show_password.png';
 import hide_password from '../../img/hide_password.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
+import ReactModal from 'react-modal';
 import loginSchema from '../schemas/loginSchema.js';
 import axios from '../../api/axios.js';
 
@@ -16,6 +18,9 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showError, setShowError] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
+    const modalText = location.state ? location.state.modalText : '';
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const onSubmit = async (values, actions) => {
         handleLogin(values);
@@ -58,6 +63,25 @@ const Login = () => {
         setShowPassword(!showPassword); 
     };
 
+    const openModal = () => {
+        setIsModalOpen(true);
+        setTimeout(() => {
+        closeModal();
+        setIsModalOpen(false);
+        }, 3000);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    // Проверка состояния isModalOpen при переходе на страницу
+    useEffect(() => {
+        if (location.state && location.state.isModalOpen) {
+        openModal();
+        }
+    }, [location.state]);
+
     return (
         <>
         <div className="form">
@@ -76,6 +100,37 @@ const Login = () => {
             </form>
             <Link to="/Signup" id="get__started">Начать пользоваться</Link>
         </div>
+        <ReactModal
+            isOpen={isModalOpen}
+            contentLabel="successActionModal"
+            style={{
+                content: {
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '16px 20px',
+                gap: '10px',
+                position: 'absolute',
+                width: '350px',
+                height: '60px',
+                background: '#FFFFFF',
+                boxShadow: '0px 2px 12px rgba(80, 85, 92, 0.12)',
+                borderRadius: '16px',
+                top: '5%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                },
+                overlay: {
+                    background: 'none',
+                  }
+            }}
+            >
+            <div style={{ overflow: 'hidden' }}>
+                <img src={bell} id="bell__img"/>
+                <b>{modalText}</b>
+            </div>
+        </ReactModal>
         </>
     )
 }

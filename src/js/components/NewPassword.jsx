@@ -1,11 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState , useEffect} from 'react'
 import smile from '../../img/smile.png';
 import vector_left from '../../img/vector_left.png';
 import show_password from '../../img/show_password.png';
 import hide_password from '../../img/hide_password.png';
 import {useFormik} from 'formik';
-import signupPassword from '../schemas/signupPassword.js'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from '../../api/axios.js';
 
 const initialValues = {
@@ -16,18 +15,41 @@ const initialValues = {
 const NewPassword = () => {
     const [showPassword, setShowPassword] = useState(false); // Состояние для отслеживания видимости пароля
     const navigate = useNavigate();
+    const { token, uidb64 } = useParams();
+
+    // const uidb64 = "NDQ";
+    // const token = "bpmac6-290703b5ee52196e70104d4d25a3e578";
+    const [tokenValid , setTokenValid] = useState('loading');
+
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const res = await axios.get(`password-reset/${uidb64}/${token}/`);
+          if(res.data.success === true){
+            setTokenValid('Valid');
+          }
+            else {
+              setTokenValid('Invalid');
+            }
+        } catch (error) {
+          console.log("error:",error);
+        }
+      }
+      fetchData();
+    }, [uidb64,token]);
+    ///
         
     const onSubmit = values => {
         if(values.password == values.confirm_password && isPasswordValid && isDigitPresent && isSpecialCharPresent && isPasswordConfirmed && isValidPasswordLength){
             console.log('Form data:', values);
             const user = {
               password: values.password,
-              uidb64: "NDQ",
-              token: "bpj526-43d4005e922896ecd70e50c002e8c90"
+              uidb64: uidb64,
+              token: token
             }
             handleSetNewPassword(user);
-            navigate("/");
-        }
+            navigate('/', { state: { isModalOpen: true, modalText: "Пароль успешно сброшен!" } });
+          }
     };
 
     const handleSetNewPassword = async (user) => {
@@ -63,6 +85,16 @@ const NewPassword = () => {
     const isPasswordConfirmed = formik.touched.confirm_password && !formik.errors.confirm_password && formik.values.confirm_password && formik.values.password === formik.values.confirm_password;
     const isValidPasswordLength = formik.values.password.length >= 8 && formik.values.password.length <= 15;
 
+    ///
+    if(tokenValid==='loading'){
+      return <h1>Loading</h1>
+    }
+    
+    if(tokenValid==='Invalid'){
+      return <h1>Not found page</h1>
+    }
+    ///
+
     return (
         <>
         <div className="form">
@@ -89,3 +121,4 @@ const NewPassword = () => {
 }
 
 export default NewPassword;
+

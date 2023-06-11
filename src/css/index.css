@@ -106,7 +106,10 @@ form input,p{
     width: 120.41px;
     height: 110.46px;
 }
-
+#bell__img{
+    height: 25px;
+    width: 25px;
+}
 .return__button img{
     width: 15px;
     height: 12px;

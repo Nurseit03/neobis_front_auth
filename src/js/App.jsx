@@ -22,7 +22,7 @@ function App() {
         <Route path="/SignupForm" element={<SignupForm />}></Route>
         <Route path="/SignupPassword" element={<SignupPassword />}></Route>
         <Route path="/PasswordReset" element={<PasswordReset />}></Route>
-        <Route path="/NewPassword" element={<NewPassword/>}></Route>
+        <Route path="/NewPassword/:uidb64/:token" element={<NewPassword />} />
         {/* <Route path="/Logout" element={<Logout />}></Route> */}
         <Route path="/Profile" element={<Profile />}></Route>
         {/* <Route path="/auth/password-reset/:uidb64/:token" component={NewPassword} /> */}
