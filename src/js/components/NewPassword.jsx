@@ -16,18 +16,22 @@ const NewPassword = () => {
     const [showPassword, setShowPassword] = useState(false); // Состояние для отслеживания видимости пароля
     const navigate = useNavigate();
     const { token, uidb64 } = useParams();
+    console.log(token);
 
-    // const uidb64 = "NDQ";
-    // const token = "bpmac6-290703b5ee52196e70104d4d25a3e578";
+
     const [tokenValid , setTokenValid] = useState('loading');
 
     useEffect(() => {
       async function fetchData() {
+        console.log(token);
+
         try {
           const res = await axios.get(`password-reset/${uidb64}/${token}/`);
           if(res.data.success === true){
             setTokenValid('Valid');
+                console.log(token);
           }
+          
             else {
               setTokenValid('Invalid');
             }
@@ -44,8 +48,8 @@ const NewPassword = () => {
             console.log('Form data:', values);
             const user = {
               password: values.password,
-              uidb64: uidb64,
-              token: token
+              token: token,
+              uidb64: uidb64
             }
             handleSetNewPassword(user);
             navigate('/', { state: { isModalOpen: true, modalText: "Пароль успешно сброшен!" } });

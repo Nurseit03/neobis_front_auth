@@ -8,10 +8,13 @@ import Signup from './components/Signup'
 import PasswordReset from './components/PasswordReset'
 import SignupPassword from './components/SignupPassword'
 import NewPassword from './components/NewPassword'
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation} from 'react-router-dom';
 import axios from 'axios';
 
 function App() {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const token = params.get('token');
 
   return (
     <>
@@ -19,13 +22,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/Signup" element={<Signup />}></Route>
-        <Route path="/SignupForm" element={<SignupForm />}></Route>
+        <Route path="/SignupForm" element={<SignupForm token={token} />}></Route>
         <Route path="/SignupPassword" element={<SignupPassword />}></Route>
         <Route path="/PasswordReset" element={<PasswordReset />}></Route>
         <Route path="/NewPassword/:uidb64/:token" element={<NewPassword />} />
-        {/* <Route path="/Logout" element={<Logout />}></Route> */}
         <Route path="/Profile" element={<Profile />}></Route>
-        {/* <Route path="/auth/password-reset/:uidb64/:token" component={NewPassword} /> */}
       </Routes>
     </div>
   </>

@@ -75,7 +75,6 @@ const Login = () => {
         setIsModalOpen(false);
     };
 
-    // Проверка состояния isModalOpen при переходе на страницу
     useEffect(() => {
         if (location.state && location.state.isModalOpen) {
         openModal();

@@ -2,7 +2,7 @@ import smile from '../../img/smile.png';
 import vector_left from '../../img/vector_left.png';
 import React, {useState,useEffect} from 'react'
 import {useFormik} from 'formik';
-import { Link , useNavigate} from 'react-router-dom';
+import { Link , useNavigate, useParams, useLocation} from 'react-router-dom';
 import basicSchema from '../schemas/index.js'
 import axios from '../../api/axios.js';
 
@@ -15,8 +15,30 @@ const initialValues = {
 
 
 const SignupForm = () => {
-    
     const navigate = useNavigate();
+    const location = useLocation();
+    //
+    const { token } = useParams();
+    const [tokenValid , setTokenValid] = useState('loading');
+
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const res = await axios.get(`email-verify/?token=${token}`);
+          if(res.data.success === true){
+            setTokenValid('Valid');
+          }
+            else {
+              setTokenValid('Invalid');
+            }
+        } catch (error) {
+          console.log("error:",error);
+        }
+      }
+      fetchData();
+    }, [token]);
+    ///
+        
 
     const onSubmit = (values, actions) => {
         actions.resetForm();
@@ -54,6 +76,16 @@ const SignupForm = () => {
         validateOnChange: false, 
         validateOnBlur: false
     });
+
+        //
+        if(tokenValid==='loading'){
+            return <h1>Loading</h1>
+          }
+          
+          if(tokenValid==='Invalid'){
+            return <h1>Not found page</h1>
+          }
+        //
 
     return (
         <>
